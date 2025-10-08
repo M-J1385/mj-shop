@@ -11,7 +11,12 @@ const bycript = require("bcryptjs");
 const cookieparser = require("cookie-parser");
 const port = 4500;
 const Secret_Key = "6572d572a21ea1277d8936639ee5d5bce6deb6ab22dc";
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:8080", // آدرس Vue
+    credentials: true, // اجازه ارسال کوکی
+  })
+);
 app.use(cookieparser());
 app.use(express.json());
 
