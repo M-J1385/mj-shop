@@ -6,5 +6,5 @@ module.exports = defineConfig({
     port: 8080,
     allowedHosts: "all",
   },
-  publicPath: "/mj-shop/",
+  publicPath: "/mj-shop",
 });
