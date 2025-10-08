@@ -2,7 +2,7 @@
   <div class="footer_top">
     <div class="footer_logo">
       <router-link :to="{ name: 'home' }"
-        ><img src="/images/logo.png" alt="logo"
+        ><img src="../../public/images/logo.png" alt="logo"
       /></router-link>
     </div>
     <div class="footer_backtotop">

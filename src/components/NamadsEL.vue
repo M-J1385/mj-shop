@@ -1,10 +1,10 @@
 <template>
   <div class="namads">
     <div class="enamad">
-      <img src="/images/enamad.png" alt="enamad" />
+      <img src="../../public/images/enamad.png" alt="enamad" />
     </div>
     <div class="samandehi">
-      <img src="/images/samandehi.webp" alt="samandehi" />
+      <img src="../../public/images/samandehi.webp" alt="samandehi" />
     </div>
   </div>
 </template>
