@@ -4,7 +4,7 @@
     class="product_item"
   >
     <div class="product_image">
-      <img :src="'/uploads/' + product.image" :alt="product.alt" />
+      <img :src="'../../public/uploads/' + product.image" :alt="product.alt" />
     </div>
     <div class="product_title">
       <p>{{ product.title }}</p>

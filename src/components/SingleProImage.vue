@@ -1,7 +1,7 @@
 <template>
   <div class="proimage" v-if="product">
     <VueMagnifier
-      :src="'/uploads/' + product.image"
+      :src="'../../public/uploads/' + product.image"
       mg-width="250"
       mg-height="250"
       zoom-factor="0.5"

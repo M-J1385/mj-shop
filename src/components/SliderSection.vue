@@ -10,16 +10,16 @@
         :autoplay="{ delay: 3000 }"
       >
         <SwiperSlide>
-          <a href="#"><img src="images/slide1.jpg" alt="slide1" /></a>
+          <a href="#"><img src="../../public/images/slide1.jpg" alt="slide1" /></a>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="#"><img src="images/slide2.jpg" alt="slide2" /></a>
+          <a href="#"><img src="../../public/images/slide2.jpg" alt="slide2" /></a>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="#"><img src="images/slide3.jpg" alt="slide3" /></a>
+          <a href="#"><img src="../../public/images/slide3.jpg" alt="slide3" /></a>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="#"><img src="images/slide4.jpg" alt="slide4" /></a>
+          <a href="#"><img src="../../public/images/slide4.jpg" alt="slide4" /></a>
         </SwiperSlide>
       </Swiper>
     </div>

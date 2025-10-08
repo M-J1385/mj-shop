@@ -2,8 +2,8 @@
   <SliderSection></SliderSection>
   <OfferSection>
     <template #offertext>
-      <img src="images/Amazings.svg" alt="amazing" class="offer_text_img" />
-      <img src="images/Amazing1.svg" alt="amazing" class="offer_text_img" />
+      <img src="../../public/images/Amazings.svg" alt="amazing" class="offer_text_img" />
+      <img src="../../public/images/Amazing1.svg" alt="amazing" class="offer_text_img" />
     </template>
     <template #offercards>
       <Swiper
@@ -54,7 +54,7 @@
         <SwiperSlide v-for="(item, index) in discountoffer" :key="index">
           <OfferCard :product="item" :id="item.id" :title="item.title">
             <template #image>
-              <img :src="'/uploads/' + item.image" />
+              <img :src="'../../public/uploads/' + item.image" />
             </template>
             <template #price>
               <p :class="{ oldprice: item.oldprice }">
@@ -71,21 +71,21 @@
   <BannerSection>
     <TwoPartBanner>
       <template #banner1>
-        <a href="#"><img src="images/banner.png" alt="banner" /></a>
+        <a href="#"><img src="../../public/images/banner.png" alt="banner" /></a>
       </template>
       <template #banner2>
-        <a href="#"><img src="images/banner1.webp" alt="banner1" /></a>
+        <a href="#"><img src="../../public/images/banner1.webp" alt="banner1" /></a>
       </template>
     </TwoPartBanner>
     <LinearBanner>
-      <a href="#"><img src="images/banner3.webp" alt="banner" /></a>
+      <a href="#"><img src="../../public/images/banner3.webp" alt="banner" /></a>
     </LinearBanner>
   </BannerSection>
   <OfferSection>
     <template #offertext>
       <h1>جدیدترین محصولات</h1>
       <img
-        src="images/new-product.png"
+        src="../../public/images/new-product.png"
         alt="new-product"
         class="offer_text_img"
       />
@@ -139,7 +139,7 @@
         <SwiperSlide v-for="(item, index) in offers" :key="index">
           <OfferCard :product="item" :id="item.id" :title="item.title">
             <template #image>
-              <img :src="'/uploads/' + item.image" />
+              <img :src="'../../public/uploads/' + item.image" />
             </template>
             <template #price>
               <p :class="{ oldprice: item.oldprice }">
@@ -164,7 +164,7 @@
   <CategoryBuy></CategoryBuy>
   <BannerSection>
     <LinearBanner>
-      <a href="#"><img src="images/banner4.jpg" alt="banner" /></a>
+      <a href="#"><img src="../../public/images/banner4.jpg" alt="banner" /></a>
     </LinearBanner>
   </BannerSection>
 </template>

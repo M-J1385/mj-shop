@@ -3,7 +3,7 @@
     <div class="category" v-for="(item, index) in categories" :key="index">
       <router-link :to="{ name: 'category', params: { cat: item.englishcat } }"
         ><img
-          :src="'/images/' + item.englishcat + '.jpg'"
+          :src="'../../public/images/' + item.englishcat + '.jpg'"
           :alt="item.englishcat"
       /></router-link>
     </div>
