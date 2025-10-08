@@ -17,7 +17,7 @@ import NotFountView from "@/views/NotFountView.vue";
 import ProductsView from "@/views/productsView.vue";
 import SearchView from "@/views/SearchView.vue";
 import SingleProductView from "@/views/SingleProductView.vue";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {
@@ -134,7 +134,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   scrollBehavior() {
     return { left: 0, top: 0 };

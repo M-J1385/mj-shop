@@ -721,7 +721,7 @@ header .shopcart:hover {
   border-radius: 0.5rem;
 }
 
-.header_top .header_right .search_input .search_result {
+header .search_input .search_result {
   width: 100%;
   max-height: 20rem;
   top: 130%;
@@ -734,7 +734,7 @@ header .shopcart:hover {
   transition: 0.5s;
 }
 
-.header_top .header_right .search_input ul.search_result li {
+header .search_input ul.search_result li {
   list-style: none;
   width: 100%;
   height: 5rem;
@@ -744,17 +744,17 @@ header .shopcart:hover {
   align-items: center;
 }
 
-.header_top .header_right .search_input ul.search_result li:first-child {
+header .search_input ul.search_result li:first-child {
   border-top: 2px solid #c2c2c2;
   border-bottom: 1px solid #c2c2c2;
 }
 
-.header_top .header_right .search_input ul.search_result li:last-child {
+header .search_input ul.search_result li:last-child {
   border-top: 1px solid #c2c2c2;
   border-bottom: 2px solid #c2c2c2;
 }
 
-.header_top .header_right .search_input ul.search_result li a {
+header .search_input ul.search_result li a {
   width: 100%;
   height: 100%;
   text-decoration: none;
@@ -763,24 +763,28 @@ header .shopcart:hover {
   align-items: center;
 }
 
-.header_top .header_right .search_input ul.search_result li a .searchimage {
+header .search_input ul.search_result li a .searchimage {
   width: 20%;
   height: 100%;
 }
 
-.header_top .header_right .search_input ul.search_result li a .searchimage img {
+header .search_input ul.search_result li a .searchimage img {
   width: 100%;
   height: 100%;
 }
 
-.header_top .header_right .search_input ul.search_result li a .searchtitle {
+header .search_input ul.search_result li a .searchtitle {
   width: 80%;
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-.header_top .header_right .search_input ul.nullsearch {
+header .search_input ul.search_result li.searchnotfound{
+  padding: 0 1rem !important;
+}
+
+header .search_input ul.nullsearch {
   max-height: 0;
   box-shadow: 0 0 0px 0px transparent;
 }
@@ -789,6 +793,7 @@ header .shopcart:hover {
   width: 15rem;
   height: 2.5rem;
   display: none;
+  position: relative;
 }
 
 .header_left .search_input form {
@@ -1648,6 +1653,40 @@ nav {
   display: flex !important;
   align-items: center;
   justify-content: center;
+}
+
+.swiper-slide:has(.showmorepro){
+  height: 100% !important;
+}
+
+.swiper-slide .showmorepro{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: white;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.swiper-slide .showmorepro:hover svg{
+fill: #ff3030;
+}
+
+.swiper-slide .showmorepro svg path{
+  transition: 0.3s;
+}
+
+.swiper-slide .showmorepro:hover svg path{
+  color: white;
+}
+
+.swiper-slide .showmorepro svg{
+  color: #ff3636;
+  transition: 0.3s;
 }
 
 .swiper-slide > a {
@@ -4310,6 +4349,14 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 992px) {
+  header .search_input .search_result li a .searchimage {
+    width: 25% !important;
+  }
+
+  header .search_input .search_result li a .searchtitle {
+    width: 75% !important;
+  }
+
   body.index {
     padding-top: 10rem;
   }
@@ -4613,6 +4660,10 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 740px) {
+  .login-wrapper.showsignup + .login-img + .backtohome {
+    top: 3.5rem !important;
+    left: 6.5rem !important;
+  }
   .login-wrapper.showlogin + .login-img {
     display: none !important;
   }
@@ -4622,7 +4673,23 @@ ul.usermenu li a:hover::before {
   }
 }
 
+@media only screen and (max-width: 695px) {
+  .login-wrapper.showsignup + .login-img + .backtohome {
+    left: 5rem !important;
+  }
+}
+
 @media only screen and (max-width: 647px) {
+  .login-wrapper.showsignup + .login-img + .backtohome {
+    top: 2.5rem !important;
+    left: 3.5rem !important;
+  }
+  body.auth main {
+    height: auto !important;
+  }
+  .login-wrapper.showsignup {
+    margin: 1.5rem 0 !important;
+  }
   .menu {
     font-size: 1rem;
   }
@@ -4673,6 +4740,9 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 590px) {
+  .login-wrapper.showsignup + .login-img + .backtohome {
+    left: 1.7rem !important;
+  }
   .products .product_item {
     width: 170px;
   }
@@ -4799,9 +4869,26 @@ ul.usermenu li a:hover::before {
   .header_top .header_right {
     width: 30%;
   }
+  body.auth main {
+    justify-content: center !important;
+  }
+  .login-wrapper.showsignup {
+    width: 95% !important;
+  }
+  .header_bottom.notlogin .header_left .shopcart {
+    display: none !important;
+  }
+  .header_bottom.notlogin {
+    padding: 0 !important;
+  }
 }
 
 @media only screen and (max-width: 560px) {
+  .login-wrapper.showlogin + .login-img + .backtohome {
+    top: 3.5rem !important;
+    left: 17% !important;
+  }
+
   .products .product_item {
     width: 160px;
     padding: 1rem 0.5rem;
@@ -4910,10 +4997,6 @@ ul.usermenu li a:hover::before {
     margin-right: 0.7rem;
   }
 
-  .login-wrapper form#loginfrm {
-    margin-top: 1rem !important;
-  }
-
   .quick_access {
     margin-right: 0.7rem;
     margin-left: 0.7rem;
@@ -4921,6 +5004,10 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 525px) {
+  .login-wrapper.showlogin + .login-img + .backtohome {
+    left: 4.5rem !important;
+  }
+
   .offer_cards {
     max-width: 80%;
   }
@@ -4945,6 +5032,10 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 490px) {
+  .login-wrapper.showlogin + .login-img + .backtohome {
+    left: 3.5rem !important;
+  }
+
   .filtertitle {
     display: none;
   }
@@ -4953,6 +5044,21 @@ ul.usermenu li a:hover::before {
   }
   .product_filters .filterwrapper {
     display: block;
+  }
+  .header_left .search_input{
+    position: unset !important;
+  }
+  header .search_input .search_result{
+    left: 50% !important;
+    top: 100%;
+    transform: translate(-50%,0) !important;
+    width: 90% !important;
+  }
+  header .search_input .search_result li a .searchimage{
+    width: 20% !important;
+  }
+  header .search_input .search_result li a .searchtitle{
+    width: 80% !important;
   }
 }
 
@@ -5101,7 +5207,7 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 455px) {
-  body.index{
+  body.index {
     padding-top: 7rem !important;
   }
   .products .product_item {
@@ -5236,7 +5342,7 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 425px) {
-  .header_bottom .header_left .header_address p{
+  .header_bottom .header_left .header_address p {
     font-size: 0.9rem !important;
   }
   .products .product_item {
@@ -5315,6 +5421,12 @@ ul.usermenu li a:hover::before {
   }
   .proinformation {
     padding: 0 1rem 1rem 1rem;
+  }
+  header .search_input .search_result li a .searchimage{
+    width: 25% !important;
+  }
+  header .search_input .search_result li a .searchtitle{
+    width: 75% !important;
   }
 }
 
@@ -5515,9 +5627,6 @@ ul.usermenu li a:hover::before {
 }
 
 @media only screen and (max-width: 335px) {
-  a#signup {
-    display: block;
-  }
   .header_operation > .header_search {
     margin-left: 0.2rem;
   }
@@ -5557,9 +5666,10 @@ ul.usermenu li a:hover::before {
   .input-group > p {
     text-align: center;
   }
+
   .login-wrapper.showlogin + .login-img + .backtohome {
-    top: 3rem !important;
-    left: 1.5rem !important;
+    top: 3.3rem !important;
+    left: 2rem !important;
     width: 2rem !important;
     height: 2rem !important;
   }
@@ -5567,8 +5677,8 @@ ul.usermenu li a:hover::before {
     font-size: 1.25rem !important;
   }
   .login-wrapper.showsignup + .login-img + .backtohome {
-    top: 0.8rem !important;
-    left: 0.8rem !important;
+    top: 2.2rem !important;
+    left: 1.3rem !important;
     width: 2rem !important;
     height: 2rem !important;
   }
@@ -5590,25 +5700,11 @@ ul.usermenu li a:hover::before {
   .product_filters .filterwrapper {
     width: 100%;
   }
-}
-
-@media only screen and (max-width: 319px) {
-  .products .product_item {
-    width: 130px;
-    min-height: 12rem;
+  header .search_input .search_result li a .searchimage{
+    width: 30% !important;
   }
-  .products .product_item .product_image {
-    height: 6rem;
-  }
-}
-
-@media only screen and (max-width: 309px) {
-  .products .product_item {
-    width: 125px;
-    min-height: 10rem;
-  }
-  .products .product_item .product_image {
-    height: 5.5rem;
+  header .search_input .search_result li a .searchtitle{
+    width: 70% !important;
   }
 }
 
