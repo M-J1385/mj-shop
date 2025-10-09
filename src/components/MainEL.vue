@@ -2,8 +2,16 @@
   <SliderSection></SliderSection>
   <OfferSection>
     <template #offertext>
-      <img src="../../public/images/Amazings.svg" alt="amazing" class="offer_text_img" />
-      <img src="../../public/images/Amazing1.svg" alt="amazing" class="offer_text_img" />
+      <img
+        src="../../public/images/Amazings.svg"
+        alt="amazing"
+        class="offer_text_img"
+      />
+      <img
+        src="../../public/images/Amazing1.svg"
+        alt="amazing"
+        class="offer_text_img"
+      />
     </template>
     <template #offercards>
       <Swiper
@@ -54,7 +62,7 @@
         <SwiperSlide v-for="(item, index) in discountoffer" :key="index">
           <OfferCard :product="item" :id="item.id" :title="item.title">
             <template #image>
-              <img :src="'../../public/uploads/' + item.image" />
+              <img :src="'/uploads/' + item.image" />
             </template>
             <template #price>
               <p :class="{ oldprice: item.oldprice }">
@@ -71,14 +79,20 @@
   <BannerSection>
     <TwoPartBanner>
       <template #banner1>
-        <a href="#"><img src="../../public/images/banner.png" alt="banner" /></a>
+        <a href="#"
+          ><img src="../../public/images/banner.png" alt="banner"
+        /></a>
       </template>
       <template #banner2>
-        <a href="#"><img src="../../public/images/banner1.webp" alt="banner1" /></a>
+        <a href="#"
+          ><img src="../../public/images/banner1.webp" alt="banner1"
+        /></a>
       </template>
     </TwoPartBanner>
     <LinearBanner>
-      <a href="#"><img src="../../public/images/banner3.webp" alt="banner" /></a>
+      <a href="#"
+        ><img src="../../public/images/banner3.webp" alt="banner"
+      /></a>
     </LinearBanner>
   </BannerSection>
   <OfferSection>
