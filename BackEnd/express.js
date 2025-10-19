@@ -13,7 +13,7 @@ const port = 4500;
 const Secret_Key = "6572d572a21ea1277d8936639ee5d5bce6deb6ab22dc";
 app.use(
   cors({
-    origin: "http://localhost:8080", // آدرس Vue
+    origin: "http://m-j1385.github.io/mj-shop:8080", // آدرس Vue
     credentials: true, // اجازه ارسال کوکی
   })
 );
