@@ -80,6 +80,7 @@ export default {
               title: "محصول در سبد خرید شما وجود دارد",
               icon: "success",
               customClass: {
+                container:"swalcontainer",
                 popup: "swal-popup",
                 icon: "swal-icon",
               },
@@ -92,26 +93,25 @@ export default {
           }
         } else {
           try {
-            const res = await api.post(
-              "/addtoshopcart",
-              {
-                id: info.product.id,
-                title: info.product.title,
-                image: info.product.image,
-                price: info.product.price,
-                oldprice: info.product.oldprice,
-                category: info.product.category,
-                proqty: info.product.proqty,
-                count: info.count,
-                username: getters.getuser.username,
-              }
-            );
+            const res = await api.post("/addtoshopcart", {
+              id: info.product.id,
+              title: info.product.title,
+              image: info.product.image,
+              price: info.product.price,
+              oldprice: info.product.oldprice,
+              category: info.product.category,
+              proqty: info.product.proqty,
+              count: info.count,
+              username: getters.getuser.username,
+            });
             dispatch("getshopcart");
             if (res.data.status == "success") {
+              info.loading = false;
               Swal.fire({
                 title: "محصول به سبد خرید اضافه شد",
                 icon: "success",
                 customClass: {
+                  container:"swalcontainer",
                   popup: "swal-popup",
                   icon: "swal-icon",
                 },
@@ -121,25 +121,29 @@ export default {
                 width: "auto",
                 confirmButtonText: "باشه",
               });
+              return info.loading;
             }
           } catch (err) {
             console.log(err);
           }
         }
       } else {
+        info.loading = false;
         Swal.fire({
           title: "ابتدا باید وارد شوید",
           icon: "error",
           customClass: {
+            container: "swalcontainer",
             popup: "swal-popup",
             icon: "swal-icon",
           },
-          timer: 3000,
-          timerProgressBar: true,
+          // timer: 3000,
+          // timerProgressBar: true,
           toast: true,
           width: "auto",
           confirmButtonText: "باشه",
         });
+        return info.loading;
       }
     },
 
@@ -157,7 +161,7 @@ export default {
             position: "top",
             customClass: {
               popup: "swal-popup-shop",
-              container: "swal-container-shop",
+              container: "swal-container-shop swalcontainerlogin",
             },
             timer: 3000,
             timerProgressBar: true,
@@ -175,9 +179,7 @@ export default {
       try {
         await dispatch("checkLogin");
         const username = getters.getuser?.username;
-        const res = await api.get(
-          `/getshopcart?username=${username}`
-        );
+        const res = await api.get(`/getshopcart?username=${username}`);
         commit("setshopcart", res.data);
       } catch (err) {
         console.log(err);

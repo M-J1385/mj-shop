@@ -9,7 +9,7 @@ import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-var imgsrc = ref("");
+var imgsrc = ref("/images/login-illustration.jpg");
 
 onMounted(() => {
   if (
@@ -17,11 +17,11 @@ onMounted(() => {
     route.name == "auth" ||
     route.name == "mainauth"
   ) {
-    imgsrc.value = "../../public/images/login-illustration.jpg";
+    imgsrc.value = "/images/login-illustration.jpg";
   } else if (route.name == "signup") {
-    imgsrc.value = "../../public/images/signup.jpg";
+    imgsrc.value = "/images/signup.jpg";
   } else if (route.name == "address") {
-    imgsrc.value = "../../public/images/address.png";
+    imgsrc.value = "/images/address.png";
   }
 });
 
@@ -29,11 +29,11 @@ watch(
   () => route.name,
   (newval) => {
     if (newval == "login") {
-      imgsrc.value = "../../public/images/login-illustration.jpg";
+      imgsrc.value = "/images/login-illustration.jpg";
     } else if (newval == "signup") {
-      imgsrc.value = "../../public/images/signup.jpg";
+      imgsrc.value = "/images/signup.jpg";
     } else if (newval == "address") {
-      imgsrc.value = "../../public/images/address.png";
+      imgsrc.value = "/images/address.png";
     }
   }
 );

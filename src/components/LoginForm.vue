@@ -37,7 +37,10 @@
       <ErrorMessage name="password" class="error"></ErrorMessage>
     </div>
     <div class="input-group">
-      <button type="submit">ورود</button>
+      <button v-if="loading == true" type="submit">
+        <LoaderEl></LoaderEl>
+      </button>
+      <button v-else type="submit">ورود</button>
     </div>
     <div class="input-group">
       <p>
@@ -57,6 +60,9 @@ import { onMounted, ref, watch } from "vue";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
+import LoaderEl from "./LoaderEl.vue";
+
+var loading = ref(false);
 const router = useRouter();
 var isshow = ref(false);
 const loginpass = ref("");
@@ -108,17 +114,20 @@ configure({
 });
 
 async function submitlogin(values) {
+  loading.value = true;
   try {
     const res = await store.dispatch("login", {
       username: values.username,
       password: values.password,
     });
     if (res.status == "success") {
+      loading.value = false;
       Swal.fire({
         title: "خوش آمدید",
         icon: "success",
         position: "top",
         customClass: {
+          container: "swalcontainerlogin",
           popup: "swal-popup-login",
         },
         timer: 3000,
@@ -130,6 +139,7 @@ async function submitlogin(values) {
         router.push({ name: "home" });
       });
     } else {
+      loading.value = false;
       Swal.fire({
         title: res.message,
         icon: "error",

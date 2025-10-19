@@ -34,7 +34,10 @@
         </div>
       </div>
       <div class="input-group">
-        <button type="submit" id="submitaddress">تایید</button>
+        <button v-if="loading == true" type="submit" id="submitaddress">
+          <LoaderEl></LoaderEl>
+        </button>
+        <button v-else type="submit" id="submitaddress">تایید</button>
       </div>
     </Form>
   </div>
@@ -52,7 +55,7 @@
       <img src="/images/marker.png" alt="marker" />
     </div>
     <button class="locate-btn" @click="locateMe">
-      <MapPinned :size="30"></MapPinned>
+      <LocateFixed :size="30"></LocateFixed>
     </button>
     <div class="search-box">
       <input
@@ -78,10 +81,12 @@ import axios from "axios";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import { useRoute, useRouter } from "vue-router";
-import { MapPinned } from "lucide-vue-next";
+import { LocateFixed } from "lucide-vue-next";
 import { store } from "@/data/VueX";
 import api from "@/axios";
+import LoaderEl from "./LoaderEl.vue";
 
+var loading = ref(false);
 const route = useRoute();
 const router = useRouter();
 
@@ -202,6 +207,7 @@ configure({
 });
 
 async function addresssubmit(values) {
+  loading.value = true;
   try {
     const res = await api.post("/addaddress", {
       address: values.mapaddress,
@@ -210,6 +216,7 @@ async function addresssubmit(values) {
       id: accessid.value,
     });
     if (res.data.status == "success") {
+      loading.value = false;
       await store.dispatch("checkLogin");
       Swal.fire({
         title: "ثبت نام انجام شد",

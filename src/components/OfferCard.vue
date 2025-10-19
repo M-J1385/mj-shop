@@ -29,8 +29,9 @@
           @click.prevent="addtoshopcart"
           type="button"
         >
-          <p>افزودن به سبد</p>
-          <i class="fa fa-circle-plus"></i>
+          <p v-if="loading == false">افزودن به سبد</p>
+          <i v-if="loading == false" class="fa fa-circle-plus"></i>
+          <LoaderEl v-if="loading == true"></LoaderEl>
         </button>
         <h3 class="notqty" v-else>ناموجود</h3>
       </div>
@@ -40,9 +41,12 @@
 
 <script setup>
 import { store } from "@/data/VueX";
-import { computed, defineProps } from "vue";
+import { computed, defineProps, ref } from "vue";
+import LoaderEl from "./LoaderEl.vue";
 
 var shopcart = computed(() => store.getters.getshopcart);
+
+var loading = ref(false);
 
 var shopcount = computed(
   () => shopcart.value.find((p) => p.id == props.product.id).count
@@ -59,10 +63,13 @@ var isshopcart = computed(() =>
 );
 
 async function addtoshopcart() {
-  await store.dispatch("addtoshopcart", {
+  loading.value = true;
+  const res = await store.dispatch("addtoshopcart", {
     product: props.product,
     count: 1,
+    loading,
   });
+  loading.value = res;
 }
 
 async function plusnumber() {

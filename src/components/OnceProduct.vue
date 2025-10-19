@@ -4,7 +4,7 @@
     class="product_item"
   >
     <div class="product_image">
-      <img :src="'../../public/uploads/' + product.image" :alt="product.alt" />
+      <img :src="'/uploads/' + product.image" :alt="product.alt" />
     </div>
     <div class="product_title">
       <p>{{ product.title }}</p>
@@ -36,8 +36,9 @@
         @click.prevent="addtoshopcart"
         type="button"
       >
-        <p>افزودن به سبد</p>
-        <i class="fa fa-circle-plus"></i>
+        <p v-if="loading == false">افزودن به سبد</p>
+        <i v-if="loading == false" class="fa fa-circle-plus"></i>
+        <LoaderEl v-if="loading == true"></LoaderEl>
       </button>
       <h3 class="notqty" v-else>ناموجود</h3>
     </div>
@@ -46,15 +47,13 @@
 
 <script setup>
 import { store } from "@/data/VueX";
-import { computed, defineProps, onMounted } from "vue";
+import { computed, defineProps, onMounted, ref } from "vue";
 import { seprate } from "@/script";
+import LoaderEl from "./LoaderEl.vue";
+
 const props = defineProps(["product"]);
-async function addtoshopcart() {
-  await store.dispatch("addtoshopcart", {
-    product: props.product,
-    count: 1,
-  });
-}
+
+var loading = ref(false);
 
 var shopcart = computed(() => store.getters.getshopcart);
 
@@ -90,6 +89,16 @@ async function minusnumber() {
     await store.dispatch("updateqty", current.id);
     await store.dispatch("getproducts");
   }
+}
+
+async function addtoshopcart() {
+  loading.value = true;
+  const res = await store.dispatch("addtoshopcart", {
+    product: props.product,
+    count: 1,
+    loading,
+  });
+  loading.value = res;
 }
 </script>
 

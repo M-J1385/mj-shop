@@ -39,7 +39,7 @@
           <img src="/images/marker.png" alt="marker" />
         </div>
         <button class="locate-btn" @click="locateMe">
-          <MapPinned :size="30"></MapPinned>
+          <LocateFixed :size="30"></LocateFixed>
         </button>
         <div class="search-box">
           <input
@@ -93,7 +93,10 @@
             </div>
           </div>
           <div class="input-group">
-            <button type="submit" id="submitaddress">تایید</button>
+            <button v-if="loading == true" type="submit" id="submitaddress">
+              <LoaderEl></LoaderEl>
+            </button>
+            <button v-else type="submit" id="submitaddress">تایید</button>
           </div>
         </Form>
       </div>
@@ -107,7 +110,7 @@
 
 <script setup>
 import { store } from "@/data/VueX";
-import { MapPinned, MapPin } from "lucide-vue-next";
+import { LocateFixed, MapPin } from "lucide-vue-next";
 import { computed, ref, watch } from "vue";
 import { MapComponent, MapTypes } from "@neshan-maps-platform/mapbox-gl-vue";
 import "@neshan-maps-platform/mapbox-gl-vue/dist/style.css";
@@ -117,6 +120,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import api from "@/axios";
+import LoaderEl from "./LoaderEl.vue";
+
+var loading = ref(false);
 
 const router = useRouter();
 
@@ -273,7 +279,7 @@ configure({
 });
 
 async function submitnewadd(values) {
-  console.log(values);
+  loading.value = true;
   const res = await api.post("/addaddress", {
     id: currentuser.value.accessid,
     address: values.mapaddress,
@@ -281,6 +287,7 @@ async function submitnewadd(values) {
     vahed: values.mapvahed,
   });
   if (res.data.status == "success") {
+    loading.value = false;
     await store.dispatch("checkLogin");
     Swal.fire({
       title: "آدرس ثبت شد",

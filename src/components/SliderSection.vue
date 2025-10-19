@@ -10,16 +10,31 @@
         :autoplay="{ delay: 3000 }"
       >
         <SwiperSlide>
-          <a href="#"><img src="../../public/images/slide1.jpg" alt="slide1" /></a>
+          <router-link
+            :to="{
+              name: 'product',
+              params: { id: '719949622', title: 'لپ تاپ گیمینگ لنوو Legion 5' },
+            }"
+            ><img src="../../public/images/slide1.jpg" alt="slide1"
+          /></router-link>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="#"><img src="../../public/images/slide2.jpg" alt="slide2" /></a>
+          <router-link :to="{
+              name: 'product',
+              params: { id: '8612004482', title: 'لپ تاپ گیمینگ لنوو Legion Pro 5' },
+            }"
+            ><img src="../../public/images/slide2.jpg" alt="slide2"
+          /></router-link>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="#"><img src="../../public/images/slide3.jpg" alt="slide3" /></a>
+          <a href="#"
+            ><img src="../../public/images/slide3.jpg" alt="slide3"
+          /></a>
         </SwiperSlide>
         <SwiperSlide>
-          <a href="#"><img src="../../public/images/slide4.jpg" alt="slide4" /></a>
+          <a href="#"
+            ><img src="../../public/images/slide4.jpg" alt="slide4"
+          /></a>
         </SwiperSlide>
       </Swiper>
     </div>

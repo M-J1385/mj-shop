@@ -20,9 +20,9 @@
         >
       </li>
       <li>
-        <router-link @click.prevent="openpanel" to=""
+        <a href="" @click.stop.prevent="openpanel"
           ><ShoppingCart></ShoppingCart>
-          <p>سبد خرید</p></router-link
+          <p>سبد خرید</p></a
         >
       </li>
       <li>

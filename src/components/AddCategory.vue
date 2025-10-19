@@ -18,7 +18,29 @@
       <ErrorMessage class="error" name="englishcat"></ErrorMessage>
     </div>
     <div class="input-group">
-      <button type="submit" id="submitaddcategory">افزودن دسته بندی</button>
+      <div class="fields">
+        <Field
+          @change="setfilename"
+          type="file"
+          name="catimage"
+          id="catimage"
+          hidden
+        />
+        <label for="catimage">عکس دسته بندی</label>
+        <span v-text="filename" id="filename"></span>
+      </div>
+      <div class="errorbox">
+        <ErrorMessage name="catimage" class="error"></ErrorMessage>
+      </div>
+    </div>
+    <div class="input-group"></div>
+    <div class="input-group">
+      <button v-if="loading == true" type="submit" id="submitaddcategory">
+        <LoaderEl></LoaderEl>
+      </button>
+      <button v-else type="submit" id="submitaddcategory">
+        افزودن دسته بندی
+      </button>
     </div>
   </Form>
 </template>
@@ -28,8 +50,11 @@ import { store } from "@/data/VueX";
 import { Form, Field, ErrorMessage, configure } from "vee-validate";
 import { ref } from "vue";
 import * as yup from "yup";
+import LoaderEl from "./LoaderEl.vue";
 
+var loading = ref(false);
 var initialvalues = ref({});
+const filename = ref("عکس دسته را انتخاب کنید");
 
 var formkey = ref(0);
 
@@ -55,13 +80,21 @@ configure({
 });
 
 async function submitaddcat(values) {
-  await store.dispatch("addtocat", values);
+  loading.value = true;
+  const res = await store.dispatch("addtocat", values);
+  loading.value = res;
   await store.dispatch("setcategory");
   initialvalues.value = {
     persiancat: "",
     englishcat: "",
+    catimage: "",
   };
+  filename.value = "";
   formkey.value++;
+}
+
+function setfilename(e) {
+  filename.value = e.target.files[0].name;
 }
 </script>
 

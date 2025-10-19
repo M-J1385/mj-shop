@@ -67,7 +67,8 @@ db.run(`CREATE TABLE IF NOT EXISTS shopcart(
 
 db.run(`CREATE TABLE IF NOT EXISTS categories(
   persiancat TEXT PRIMARY KEY,
-  englishcat TEXT
+  englishcat TEXT,
+  catimage TEXT
 )`);
 
 db.run(`CREATE TABLE IF NOT EXISTS skills(
@@ -123,14 +124,20 @@ const upload = multer({ storage, fileFilter });
 //   });
 // }
 
-app.post("/addtocat", (req, res) => {
+app.post("/addtocat", upload.single("catimage"), (req, res) => {
   const { persiancat, englishcat } = req.body;
+  let image;
+  if (req.existimage) {
+    image = req.existfilename;
+  } else {
+    image = req.file ? req.file.originalname : null;
+  }
   db.run(
-    `INSERT INTO categories (persiancat,englishcat) VALUES (?,?)`,
-    [persiancat, englishcat],
+    `INSERT INTO categories (persiancat,englishcat,catimage) VALUES (?,?,?)`,
+    [persiancat, englishcat, image],
     function (err) {
       if (err) {
-        res.status(500).json({ status: "error", message: err });
+        return res.status(500).json({ status: "error", message: err });
       }
       res.json({ status: "success", message: "ثبت شد" });
     }

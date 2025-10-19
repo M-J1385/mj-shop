@@ -117,7 +117,10 @@
       </div>
     </div>
     <div class="input-group">
-      <button v-text="btntext" type="submit" id="submitprobtn"></button>
+      <button v-if="loading == true" type="submit" id="submitprobtn">
+        <LoaderEl></LoaderEl>
+      </button>
+      <button v-else v-text="btntext" type="submit" id="submitprobtn"></button>
     </div>
   </Form>
 </template>
@@ -136,10 +139,14 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import * as yup from "yup";
 import Swal from "sweetalert2";
+import LoaderEl from "./LoaderEl.vue";
+
 const route = useRoute();
 const router = useRouter();
 
 const filename = ref("عکس محصول را انتخاب کنید");
+
+var loading = ref(false);
 
 var selectval = ref("");
 
@@ -322,6 +329,7 @@ configure({
 
 async function submitaddpro(values) {
   if (iseditmode.value) {
+    loading.value = true;
     var selectcat = categories.value.find(
       (p) => p.persiancat == selectval.value
     );
@@ -329,6 +337,7 @@ async function submitaddpro(values) {
     values.id = route.params.id;
     const res = await store.dispatch("updateproduct", values);
     if (res.status == "success") {
+      loading.value = false;
       await store.dispatch("getproducts");
       await store.dispatch("getshopcart");
       Swal.fire({
@@ -348,6 +357,7 @@ async function submitaddpro(values) {
       });
     }
   } else {
+    loading.value = true;
     var selectcat1 = categories.value.find(
       (p) => p.persiancat == selectval.value
     );
@@ -358,6 +368,7 @@ async function submitaddpro(values) {
     const res = await store.dispatch("addproduct", values);
     if (res.status == "success") {
       await store.dispatch("addskills", values);
+      loading.value = false;
       resetformdata();
     }
   }

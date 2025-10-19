@@ -30,8 +30,11 @@
 import { store } from "@/data/VueX";
 import { seprate } from "@/script";
 import { computed, onMounted } from "vue";
+import Swal from "sweetalert2";
 
-const products = computed(() => store.getters.getproducts);
+const products = computed(() =>
+  [...store.getters.getproducts].sort((a, b) => b.autoid - a.autoid)
+);
 
 onMounted(async () => {
   await store.dispatch("getproducts");
@@ -39,8 +42,21 @@ onMounted(async () => {
 
 async function deleteproduct(id) {
   const res = await store.dispatch("deleteproduct", id);
-  console.log(res);
-
-  await store.dispatch("getproducts");
+  if (res.status == "success") {
+    await store.dispatch("getproducts");
+    Swal.fire({
+      title: "محصول حذف شد",
+      icon: "success",
+      customClass: {
+        popup: "swal-popup",
+        icon: "swal-icon",
+      },
+      timer: 1500,
+      timerProgressBar: true,
+      toast: true,
+      width: "auto",
+      confirmButtonText: "باشه",
+    });
+  }
 }
 </script>

@@ -7,21 +7,40 @@
     <User :size="25"></User>ورود/ثبت نام
   </router-link>
   <div @click.stop="openusermenu" class="header_auth login_header" v-else>
-    <UserRound :stroke-width="1.5" :size="32"></UserRound>
-    <ChevronDown :size="25"></ChevronDown>
+    <i class="fa fa-user"></i>
+    <ChevronDown :size="22"></ChevronDown>
     <ul :class="['usermenu', { active: isopen }]">
       <li>
-        <router-link class="username" to="/">{{ user.username }}</router-link>
+        <router-link class="username" to="/"
+          ><p>{{ user.username }}</p>
+          <ChevronLeft :size="20"></ChevronLeft>
+        </router-link>
       </li>
-      <li><router-link @click.prevent="logout" to="/">خروج</router-link></li>
-      <li><router-link to="/">حساب کاربری</router-link></li>
+      <li>
+        <router-link class="username" to="/"
+          ><p>سفارش ها</p>
+          <ShoppingBag :size="20"></ShoppingBag>
+        </router-link>
+      </li>
+      <li>
+        <router-link class="username" to="/"
+          ><p>آدرس ها</p>
+          <CircuitBoard :size="20"></CircuitBoard>
+        </router-link>
+      </li>
+      <li>
+        <router-link @click.prevent="logout" to="/"
+          ><p>خروج از حساب کاربری</p>
+          <LogOut :size="20"></LogOut>
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
 
 <script setup>
 import { store } from "@/data/VueX";
-import { User, UserRound, ChevronDown } from "lucide-vue-next";
+import { User, ChevronDown, LogOut, ChevronLeft,ShoppingBag,CircuitBoard } from "lucide-vue-next";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";

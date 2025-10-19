@@ -153,7 +153,7 @@
         <SwiperSlide v-for="(item, index) in offers" :key="index">
           <OfferCard :product="item" :id="item.id" :title="item.title">
             <template #image>
-              <img :src="'../../public/uploads/' + item.image" />
+              <img :src="'/uploads/' + item.image" />
             </template>
             <template #price>
               <p :class="{ oldprice: item.oldprice }">

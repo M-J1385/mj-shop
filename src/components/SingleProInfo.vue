@@ -44,7 +44,9 @@
         type="button"
         class="addtocard"
       >
-        افزودن به سبد خرید
+        <p v-if="loading == false">افزودن به سبد خرید</p>
+        <i v-if="loading == false" class="fa fa-circle-plus"></i>
+        <LoaderEl v-if="loading == true"></LoaderEl>
       </button>
     </div>
   </div>
@@ -55,6 +57,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { store } from "@/data/VueX";
 import { seprate } from "@/script";
+import LoaderEl from "./LoaderEl.vue";
 // var offers = ref(computed(() => store.getters.getproducts));
 const route = useRoute();
 
@@ -65,6 +68,8 @@ const route = useRoute();
 //     return true;
 //   }
 // });
+
+var loading = ref(false);
 
 const proid = computed(() => route.params.id);
 
@@ -126,10 +131,13 @@ async function minusnumber(id) {
 }
 
 async function addtocard() {
-  await store.dispatch("addtoshopcart", {
+  loading.value = true;
+  const res = await store.dispatch("addtoshopcart", {
     product: product.value,
     count: procount.value,
+    loading,
   });
+  loading.value = res;
 }
 
 const qty = computed(() => {

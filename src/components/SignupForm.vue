@@ -79,7 +79,10 @@
       </div>
     </div>
     <div class="input-group">
-      <button id="signupbtn" type="submit">ثبت نام</button>
+      <button v-if="loading == true" id="signupbtn" type="submit">
+        <LoaderEl></LoaderEl>
+      </button>
+      <button v-else id="signupbtn" type="submit">ثبت نام</button>
     </div>
     <div class="input-group">
       <p>
@@ -108,8 +111,10 @@ import { uniqid } from "@/script";
 import { store } from "@/data/VueX";
 import Swal from "sweetalert2";
 import api from "@/axios";
+import LoaderEl from "./LoaderEl.vue";
 // import { store } from "@/data/VueX";
 
+var loading = ref(false);
 const router = useRouter();
 var userfield = ref("");
 var signuppass = ref("");
@@ -172,6 +177,7 @@ onMounted(() => {
 });
 
 async function submitsignup(values) {
+  loading.value = true;
   const accessid = uniqid();
   try {
     const res = await api.post("/save", {
@@ -186,8 +192,10 @@ async function submitsignup(values) {
         password: values.s_password,
       });
       if (logres.status == "success") {
+        loading.value = false;
         router.push({ name: "address", query: { q: accessid } });
       } else {
+        loading.value = false;
         Swal.fire({
           title: "ورود ناموفق بود",
           icon: "error",

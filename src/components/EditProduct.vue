@@ -31,7 +31,9 @@ import { store } from "@/data/VueX";
 import { seprate } from "@/script";
 import { computed, onMounted } from "vue";
 
-const products = computed(() => store.getters.getproducts);
+var products = computed(() =>
+  [...store.getters.getproducts].sort((a, b) => b.autoid - a.autoid)
+);
 
 onMounted(async () => {
   await store.dispatch("getproducts");

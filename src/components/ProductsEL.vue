@@ -24,68 +24,73 @@
 <script setup>
 import { store } from "@/data/VueX";
 import OnceProduct from "./OnceProduct.vue";
-import { computed, defineProps, onMounted, ref } from "vue";
+import { computed, defineProps, onMounted, ref, watch } from "vue";
 import { backtotop } from "@/script";
+import { useRoute, useRouter } from "vue-router";
+
 var offers = computed(() => store.getters.getproducts);
 
 async function getproducts() {
   await store.dispatch("getproducts");
 }
 
+const route = useRoute();
+const router = useRouter();
+
 const props = defineProps({
   fillter: String,
   sendcat: String,
   sendsearch: String,
 });
+
 onMounted(() => {
   getproducts();
 });
 
 const itemperpage = ref(12);
-var currentpage = ref(1);
+const currentpage = ref(Number(route.query.page) || 1);
 
 var totalpages = computed(() =>
-  Math.ceil(offers.value.length / itemperpage.value)
+  Math.ceil(filterproduct.value.length / itemperpage.value)
 );
 
-const sortedpropduct = computed(() => {
+const filterproduct = computed(() => {
   var newoffer = offers.value;
-  const startindex = (currentpage.value - 1) * itemperpage.value;
+
   if (props.sendcat) {
     newoffer = offers.value.filter((p) => p.category == props.sendcat);
-    totalpages = computed(() =>
-      Math.ceil(sortedpropduct.value.length / itemperpage.value)
-    );
   }
   if (props.sendsearch) {
     newoffer = offers.value.filter((p) => p.title.includes(props.sendsearch));
-    totalpages = computed(() =>
-      Math.ceil(sortedpropduct.value.length / itemperpage.value)
-    );
   }
+
+  return newoffer;
+});
+
+const sortedpropduct = computed(() => {
+  const startindex = (currentpage.value - 1) * itemperpage.value;
+
+  var newoffer = [...filterproduct.value];
+
   if (props.fillter == "newpro") {
-    return newoffer
-      .sort((a, b) => b.autoid - a.autoid)
-      .slice(startindex, startindex + itemperpage.value);
+    newoffer.sort((a, b) => b.autoid - a.autoid);
   } else if (props.fillter == "cheappro") {
-    return newoffer
-      .sort(
-        (a, b) =>
-          Number(a.oldprice ? a.oldprice : a.price) -
-          Number(b.oldprice ? b.oldprice : b.price)
-      )
-      .slice(startindex, startindex + itemperpage.value);
+    newoffer.sort(
+      (a, b) =>
+        Number(a.oldprice ? a.oldprice : a.price) -
+        Number(b.oldprice ? b.oldprice : b.price)
+    );
   } else if (props.fillter == "exppro") {
-    return newoffer
-      .sort(
-        (a, b) =>
-          Number(b.oldprice ? b.oldprice : b.price) -
-          Number(a.oldprice ? a.oldprice : a.price)
-      )
-      .slice(startindex, startindex + itemperpage.value);
+    newoffer.sort(
+      (a, b) =>
+        Number(b.oldprice ? b.oldprice : b.price) -
+        Number(a.oldprice ? a.oldprice : a.price)
+    );
   } else {
-    return newoffer.slice(startindex, startindex + itemperpage.value);
+    return newoffer;
   }
+
+  return newoffer.slice(startindex, startindex + itemperpage.value);
 });
 
 const paginationPages = computed(() => {
@@ -115,9 +120,23 @@ const paginationPages = computed(() => {
   return pages;
 });
 
+watch(
+  () => route.query.page,
+  (newPage) => {
+    if (!newPage) {
+      currentpage.value = 1;
+    } else {
+      currentpage.value = Number(newPage);
+    }
+  }
+);
+
 function gotopage(page) {
   if (page === "...") return;
   currentpage.value = page;
+  router.push({
+    query: { ...route.query, page: page },
+  });
   backtotop();
 }
 </script>

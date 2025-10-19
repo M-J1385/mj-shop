@@ -1,12 +1,8 @@
 <template>
-  <div class="shopcart">
+  <div class="shopcart" @click="openpanel">
     <span class="shopcount">{{ totalcount }}</span>
     <!-- <i @click="openpanel" class="fa fa-bag-shopping"></i> -->
-    <HandbagIcon
-      :stroke-width="1.7"
-      :size="27"
-      @click="openpanel"
-    ></HandbagIcon>
+    <HandbagIcon :stroke-width="1.7" :size="27"></HandbagIcon>
   </div>
   <div ref="shopcartpanel" class="shopcart_panel">
     <span><i @click="closepanel" class="fa fa-close"></i></span>
@@ -18,6 +14,7 @@
       :class="{ 'shopitems empty': totalcount == 0, shopitems: totalcount > 0 }"
     >
       <div class="emptyshopcart" v-if="totalcount == 0">
+        <img src="/images/empty-cart.svg" alt="empty-cart" />
         <h3>سبد خرید شما خالیست</h3>
       </div>
       <div

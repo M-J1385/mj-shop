@@ -21,10 +21,11 @@ export default {
       commit("setcat", res.data);
     },
     async addtocat(state, values) {
-      const res = await api.post("/addtocat", {
-        persiancat: values.persiancat,
-        englishcat: values.englishcat,
-      });
+      const formdata = new FormData();
+      formdata.append("persiancat", values.persiancat);
+      formdata.append("englishcat", values.englishcat);
+      formdata.append("catimage", values.catimage);
+      const res = await api.post("/addtocat", formdata);
       if (res.data.status == "success") {
         Swal.fire({
           title: "دسته بندی اضافه شد",
@@ -39,6 +40,7 @@ export default {
           width: "auto",
           confirmButtonText: "باشه",
         });
+        return false;
       }
     },
     async deletecategory(state, values) {
