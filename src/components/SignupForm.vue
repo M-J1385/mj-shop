@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="input-group">
-      <button v-if="loading == true" id="signupbtn" type="submit">
+      <button disabled v-if="loading == true" id="signupbtn" type="submit">
         <LoaderEl></LoaderEl>
       </button>
       <button v-else id="signupbtn" type="submit">ثبت نام</button>

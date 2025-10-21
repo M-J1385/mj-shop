@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="input-group">
-        <button v-if="loading == true" type="submit" id="submitaddress">
+        <button disabled v-if="loading == true" type="submit" id="submitaddress">
           <LoaderEl></LoaderEl>
         </button>
         <button v-else type="submit" id="submitaddress">تایید</button>

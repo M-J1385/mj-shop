@@ -49,7 +49,10 @@
         <ErrorMessage class="error" name="procat"></ErrorMessage>
       </div>
       <div class="input-group">
-        <button type="submit" id="submitdeletecat">حذف دسته بندی</button>
+        <button disabled v-if="loading == true" type="submit" id="submitdeletecat">
+          <LoaderEl></LoaderEl>
+        </button>
+        <button v-else type="submit" id="submitdeletecat">حذف دسته بندی</button>
       </div>
     </Form>
   </div>
@@ -66,8 +69,11 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/vue";
+import LoaderEl from "./LoaderEl.vue";
 
 var formkey = ref(0);
+
+var loading = ref(false);
 
 const categories = computed(() => store.getters.getcategory);
 
@@ -95,8 +101,10 @@ configure({
 });
 
 async function deletecategory(values) {
+  loading.value = true;
   await store.dispatch("deletecategory", values);
   await store.dispatch("setcategory");
+  loading.value = false;
   deletecat.value = "";
   formkey.value++;
 }

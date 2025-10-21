@@ -37,7 +37,7 @@
       <ErrorMessage name="password" class="error"></ErrorMessage>
     </div>
     <div class="input-group">
-      <button v-if="loading == true" type="submit">
+      <button disabled v-if="loading == true" type="submit">
         <LoaderEl></LoaderEl>
       </button>
       <button v-else type="submit">ورود</button>

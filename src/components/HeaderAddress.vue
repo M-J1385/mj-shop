@@ -5,6 +5,9 @@
     </p>
   </div>
   <div :class="['alladdress', { active: isopen }]">
+    <span class="close-address"
+      ><i @click.prevent="isopen = false" class="fa fa-close"></i
+    ></span>
     <div v-if="state == 'showaddress'" class="showaddress">
       <ul>
         <li v-for="(item, index) in currentuser?.address" :key="index">
@@ -93,7 +96,7 @@
             </div>
           </div>
           <div class="input-group">
-            <button v-if="loading == true" type="submit" id="submitaddress">
+            <button disabled v-if="loading == true" type="submit" id="submitaddress">
               <LoaderEl></LoaderEl>
             </button>
             <button v-else type="submit" id="submitaddress">تایید</button>

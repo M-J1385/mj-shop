@@ -39,7 +39,7 @@
     <div class="probtn">
       <button
         v-if="containshop"
-        :disabled="product.proqty == 0"
+        :disabled="product.proqty == 0 || loading == true"
         @click="addtocard"
         type="button"
         class="addtocard"

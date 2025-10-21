@@ -117,7 +117,7 @@
       </div>
     </div>
     <div class="input-group">
-      <button v-if="loading == true" type="submit" id="submitprobtn">
+      <button disabled v-if="loading == true" type="submit" id="submitprobtn">
         <LoaderEl></LoaderEl>
       </button>
       <button v-else v-text="btntext" type="submit" id="submitprobtn"></button>

@@ -35,6 +35,7 @@
         v-if="product.proqty > 0"
         @click.prevent="addtoshopcart"
         type="button"
+        :disabled="loading == true"
       >
         <p v-if="loading == false">افزودن به سبد</p>
         <i v-if="loading == false" class="fa fa-circle-plus"></i>
